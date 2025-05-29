@@ -8,31 +8,14 @@ dest_input = input("👉 Введіть ДРУГИЙ шлях (куди копі
 dest_directory = Path(dest_input) if dest_input else Path("dist")
 
 def moving_content(start_directory, dest_directory):
-    # while 
     for path in start_directory.iterdir():
-        # print(path)
+        name_directory = path.suffix[1:] or "unknown"
         if path.is_file():
-            shutil.copy(path, dest_directory)
+            new_directory= dest_directory/name_directory
+            new_directory.mkdir(parents=True, exist_ok=True)
+            shutil.copy(path, new_directory/path.name)
         elif path.is_dir():
             moving_content(path, dest_directory)
-    
-
-       
-    # shutil.copy(start_directory, dest_directory)
-
-
-    # print(f"📁 Початкова директорія: {start_directory}")
-    # print(f"📂 Кінцева директорія: {dest_directory}")
-
-    # # Приклад використання
-    # if not start_directory.exists():
-    #     print("❗ Початкова директорія не існує.")
-    # if not dest_directory.exists():
-    #     print("❗ Кінцева директорія не існує.")
+print("переміщення відбулось успішно")
 
 moving_content(start_directory, dest_directory)
-
-
-
-
-
